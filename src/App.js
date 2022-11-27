@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import PhotoContextProvider from "./context/PhotoContext";
 import './App.css';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Item from "./components/Item";
+import Navbar from "./components/Navbar";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <PhotoContextProvider>
+      <BrowserRouter>
+        <Navbar /><hr/>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            render={() => <Navigate to="/base" replace={true}/>}
+          />
+          <Route path="/base" element={<Item searchTerm="base guitar" />} />
+          <Route path="/nature" element={<Item searchTerm="nature" />} />
+        </Routes>
+      </BrowserRouter>
+    </PhotoContextProvider>
     </div>
   );
 }
